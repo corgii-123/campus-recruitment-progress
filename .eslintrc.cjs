@@ -16,7 +16,8 @@ module.exports = {
     '/**/*.json',
     'src/**/*.test.js',
     '/node_modules/*',
-    '/**/*.html'
+    '/**/*.html',
+    '/**/*.md'
   ],
   rules: {
     'comma-dangle': ['error', 'never'],
