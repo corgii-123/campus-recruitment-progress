@@ -39,6 +39,9 @@ function TaskCard({ application, onEditApplication, onDeleteApplication }) {
         {Array.from({ length: application.state }, (_, i) => (
           <li key={status.current[i]}>{`${status.current[i]}✔️`}</li>
         ))}
+        {application.isPass === 0 && (
+          <li key="stop">{`${status.current[application.state]}❔`}</li>
+        )}
         {application.isPass === 1 && (
           <li key="stop">{`${status.current[application.state]}❌`}</li>
         )}
