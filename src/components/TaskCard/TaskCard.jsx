@@ -7,13 +7,17 @@ import InfoForm from '../InfoForm/InfoForm'
 function TaskCard({ application, onEditApplication, onDeleteApplication }) {
   const [isEditing, setIsEditing] = useState(false)
   const status = useRef(['简历', '笔试', '一面', '二面', '三面', '四面'])
+  const emoji = useRef(['❔', '❌', '✔️'])
+
   const [, formattedRes] = useCountDown({
     targetDate: `${application.taskDate.split('T').join(' ')}:00`
   })
   const { days, hours, minutes, seconds } = formattedRes
+
   const shouldShowGap = () =>
     application.taskDate &&
     Date.now() < new Date(application.taskDate).getTime()
+
   const handleEdit = () => {
     setIsEditing(true)
   }
@@ -25,7 +29,7 @@ function TaskCard({ application, onEditApplication, onDeleteApplication }) {
           ? ' bg-emerald-500'
           : application.isPass === 1
           ? ' bg-red-400'
-          : ' bg-amber-300'
+          : ' bg-amber-400'
       }`}
     >
       <a
@@ -39,15 +43,12 @@ function TaskCard({ application, onEditApplication, onDeleteApplication }) {
         {Array.from({ length: application.state }, (_, i) => (
           <li key={status.current[i]}>{`${status.current[i]}✔️`}</li>
         ))}
-        {application.isPass === 0 && (
-          <li key="stop">{`${status.current[application.state]}❔`}</li>
-        )}
-        {application.isPass === 1 && (
-          <li key="stop">{`${status.current[application.state]}❌`}</li>
-        )}
-        {application.isPass === 2 && (
-          <li key="stop">{`${status.current[application.state]}✔️`}</li>
-        )}
+        <li key="emoji">
+          {`${
+            status.current[application.state] +
+            emoji.current[application.isPass]
+          }`}
+        </li>
       </ul>
       {shouldShowGap() && (
         <div className="pb-3 text-lg text-slate-800">
@@ -56,8 +57,10 @@ function TaskCard({ application, onEditApplication, onDeleteApplication }) {
             {status.current[application.state]}
           </p>
           <p className=" mb-2">{`${application.taskDate}`}</p>
-          <p className=" text-green-100 text-2xl drop-shadow-lg shadow-black">{`${days}天${hours}小时`}</p>
-          <p className=" text-green-100 text-2xl relative top-0 left-10 drop-shadow-lg shadow-black">{`${minutes}分钟${seconds}秒`}</p>
+          <div className="w-full flex justify-center items-center flex-col">
+            <p className=" text-green-100 text-2xl shadow-black">{`${days}天${hours}小时`}</p>
+            <p className=" text-green-100 text-2xl shadow-black">{`${minutes}分钟${seconds}秒`}</p>
+          </div>
         </div>
       )}
       <div className="flex w-full justify-around">

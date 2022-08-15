@@ -25,7 +25,7 @@ function InfoForm({
     })
   }
   return (
-    <div className=" fixed top-0 left-0 h-[100vh] w-[100vw] flex justify-center items-center bg-slate-400 transition-all text-slate-800">
+    <div className=" fixed top-0 left-0 z-10 h-[100vh] w-[100vw] flex justify-center items-center bg-slate-400 transition-all text-slate-800">
       <div className="relative p-5 h-[80vh] shadow-card-l hover:shadow-card-l-hover bg-gray-300 hover:bg-slate-400 transition-all duration-500 rounded-lg w-[30vw] flex justify-around items-center flex-col">
         <button
           id="close"
